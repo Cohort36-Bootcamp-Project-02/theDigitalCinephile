@@ -1,3 +1,5 @@
+filmApp.filterTrailers = [];
+
 filmApp.getTrailers = (filmID) => {
   // need film's ID # for "Video Endpoint"
   const id = filmID

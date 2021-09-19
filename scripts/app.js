@@ -6,8 +6,7 @@ filmApp.tmdbURL = `https://api.themoviedb.org/3`
 filmApp.tmdbApiKey = `6466215c94f1a824318fbdb48759e82e`
 filmApp.posterBaseURL = `https://image.tmdb.org/t/p/original`
 filmApp.youtubeURL = `https://youtube.com/watch`
-filmApp.trailerArray = []
-filmApp.trailerFilter = []
+
 
 // HTML properties
 filmApp.searchForm = document.querySelector('.filmSearch')
@@ -45,6 +44,7 @@ filmApp.filmSearch = (query) => {
 }
 // Get data for the film the user entered (ID, title, poster)
 filmApp.queryData = (searchResult) => {
+  console.log(searchResult)
   // Create a heading "Since you enjoy <film title>, you may also like:"
     // Include poster beside as well?
 }
