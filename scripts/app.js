@@ -29,22 +29,25 @@ filmApp.userInput = () => {
 
 // Take user input, create ajax request to search for films with the user's input as the title
 filmApp.filmSearch = (query) => {
-  const search = new URL(`${filmApp.tmdbURL}/search/movie`)
-  search.search = new URLSearchParams({
+  const userSearch = new URL(`${filmApp.tmdbURL}/search/movie`)
+  userSearch.search = new URLSearchParams({
     api_key:filmApp.tmdbApiKey,
     include_adult:false,
     query:query
   })
-  fetch(search)
+  fetch(userSearch)
   .then((results) => {
     return results.json();
   })
   .then((data) => {
     filmApp.queryData(data.results[0])
+
   })
 }
 // Get data for the film the user entered (ID, title, poster)
 filmApp.queryData = (searchResult) => {
+  console.log(searchResult);
+  filmApp.filmRec(searchResult.id);
   // Create a heading "Since you enjoy <film title>, you may also like:"
     // Include poster beside as well?
 }
@@ -52,8 +55,26 @@ filmApp.queryData = (searchResult) => {
 
   
 // Use film's ID# as param in second ajax request to grab recommended films
-
 // In separate method, display recommended film array
+filmApp.filmRec = (movieId) => {
+  const userRec = new URL(`${filmApp.tmdbURL}/movie/${movieId}/recommendations`)
+  userRec.search = new URLSearchParams({
+    api_key:filmApp.tmdbApiKey,
+  })
+  fetch(userRec)
+  .then((results) => {
+    return results.json();
+  })
+  .then((reco) => {
+    filmApp.resultReco(reco.results)
+  })
+}
+filmApp.resultReco = (e) => {
+  console.log(e);
+}
+
+
+
   // each film displays (in a gallery-like presentation):
     // film Poster
     // Film Title
