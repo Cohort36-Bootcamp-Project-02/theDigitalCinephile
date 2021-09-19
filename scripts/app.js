@@ -6,8 +6,7 @@ filmApp.tmdbURL = `https://api.themoviedb.org/3`
 filmApp.tmdbApiKey = `6466215c94f1a824318fbdb48759e82e`
 filmApp.posterBaseURL = `https://image.tmdb.org/t/p/original`
 filmApp.youtubeURL = `https://youtube.com/watch`
-filmApp.trailerArray = []
-filmApp.trailerFilter = []
+
 
 // HTML properties
 filmApp.searchForm = document.querySelector('.filmSearch')
