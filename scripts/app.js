@@ -22,6 +22,7 @@ filmApp.userInput = () => {
   filmApp.searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const userQuery = document.querySelector("input[name=searchFilmTitle]").value
+    refineGallery.innerHTML = '';
     filmApp.filmSearch(userQuery)
   })
 }
@@ -39,8 +40,7 @@ filmApp.filmSearch = (query) => {
     return results.json();
   })
   .then((data) => {
-    filmApp.queryData(data.results[0])
-
+    filmApp.refineSearch(data.results)
   })
 }
 // Get data for the film the user entered (ID, title, poster)
