@@ -7,7 +7,7 @@
   display:flex;
   flex-wrap:wrap;
   .refineContainer {
-    flex:1 1 25%;
+    flex:1 1 calc(30% - 25px);
     padding:25px;
   }
 }
