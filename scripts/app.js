@@ -22,6 +22,7 @@ filmApp.userInput = () => {
   filmApp.searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const userQuery = document.querySelector("input[name=searchFilmTitle]").value
+    refineGallery.innerHTML = '';
     filmApp.filmSearch(userQuery)
   })
 }
@@ -39,12 +40,14 @@ filmApp.filmSearch = (query) => {
     return results.json();
   })
   .then((data) => {
-    filmApp.queryData(data.results[0])
-
+    filmApp.refineSearch(data.results)
   })
 }
 // Get data for the film the user entered (ID, title, poster)
 filmApp.queryData = (searchResult) => {
+  // With my current refineSearch method, I can only grab an item within the film object, not the film object itself.
+    // a potential solution might be another ajax request using https://api.themoviedb.org/3/movie/${movieID} endpoint, and grabbing data from that for the results heading
+      // aka: instead of using the film object as a param for this method, grab the film's ID# for another ajax request, to grab the specific details (title, poster) & create a the heading. We can still push the same filmID param into the next method
   console.log(searchResult);
   filmApp.filmRec(searchResult.id);
   // Create a heading "Since you enjoy <film title>, you may also like:"

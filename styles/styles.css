@@ -240,3 +240,23 @@ html {
   width: 85%;
   margin: 0 auto;
 }
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.refineGallery {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.refineGallery .refineContainer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 calc(30% - 25px);
+          flex: 1 1 calc(30% - 25px);
+  padding: 25px;
+}
