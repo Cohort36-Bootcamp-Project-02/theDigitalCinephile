@@ -23,6 +23,7 @@ filmApp.userInput = () => {
     event.preventDefault();
     const userQuery = document.querySelector("input[name=searchFilmTitle]").value
     refineGallery.innerHTML = '';
+    refineSection.innerHTML = '';
     filmApp.filmSearch(userQuery)
   })
 }
@@ -71,13 +72,30 @@ filmApp.filmRec = (movieId) => {
     filmApp.resultReco(reco.results)
   })
 }
-filmApp.resultReco = (e) => {
-  console.log(e);
+filmApp.resultReco = (resultArray) => {
+  const resultGallery = document.createElement('div');
+  resultGallery.classList.add('resultGallery');
+  resultArray.forEach((rec) =>{
+    const {title, poster_path, overview, id} = rec
+    const resultContainer = document.createElement('div')
+    resultContainer.classList.add('resultContainer');
+    resultContainer.innerHTML = `
+      <img src="${filmApp.posterBaseURL}${poster_path}" alt="poster of ${title}">
+      <div class="resultOverlay">
+        <h3>${title}</h3>
+        <p>${overview}</p>
+      </div>
+      `
+      resultGallery.appendChild(resultContainer);
+  })
+  filmApp.results.appendChild(resultGallery);
 }
 
 
-
   // each film displays (in a gallery-like presentation):
+
+  
+
     // film Poster
     // Film Title
     // Plot Summary

@@ -1,5 +1,6 @@
 const refineSection = document.querySelector('.refineSearch')
-const refineGallery = document.querySelector('.refineGallery')
+const refineGallery = document.createElement('div')
+refineGallery.classList.add('refineGallery');
 filmApp.topResults = [] 
 
 
@@ -14,20 +15,21 @@ filmApp.refineSearch = (resultArray) => {
       const {title, id, poster_path} = film
       // display poster for each result with a button with the title of the film
         const refineContainer = document.createElement('div')
-        refineContainer.className = 'refineContainer'
+        refineContainer.classList.add('refineContainer');
         refineContainer.innerHTML = `
-        <img src="${filmApp.posterBaseURL}${poster_path}" alt="poster fof ${title}">
+        <img src="${filmApp.posterBaseURL}${poster_path}" alt="poster of ${title}">
         <button type="submit" class="refineSubmit" value="${id}"> ${title}</button>
         `
         refineGallery.appendChild(refineContainer)
-    }
+      }
+      refineSection.appendChild(refineGallery);
   })
   const refineButtons = document.querySelectorAll('.refineSubmit')
   refineButtons.forEach((refinedQuery) => {
     refinedQuery.addEventListener('click', function() {
-      const refinedQuery = this.value
+      const refinedId = this.value
       refineSection.innerHTML = '';
-      filmApp.filmRec(refinedQuery)
+      filmApp.filmRec(refinedId)
     })
   })
     //Button has value of film's ID#
