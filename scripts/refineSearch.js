@@ -29,7 +29,7 @@ filmApp.refineSearch = (resultArray) => {
     refinedQuery.addEventListener('click', function() {
       const refinedId = this.value
       refineSection.innerHTML = '';
-      filmApp.filmRec(refinedId)
+      filmApp.displayResult(refinedId)
     })
   })
     //Button has value of film's ID#

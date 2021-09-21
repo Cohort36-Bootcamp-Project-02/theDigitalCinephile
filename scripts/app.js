@@ -24,6 +24,7 @@ filmApp.userInput = () => {
     const userQuery = document.querySelector("input[name=searchFilmTitle]").value
     refineGallery.innerHTML = '';
     refineSection.innerHTML = '';
+    filmApp.results.innerHTML = '';
     filmApp.filmSearch(userQuery)
   })
 }
@@ -45,32 +46,34 @@ filmApp.filmSearch = (query) => {
   })
 }
 // Get data for the film the user entered (ID, title, poster)
-filmApp.queryData = (searchResult) => {
-  // With my current refineSearch method, I can only grab an item within the film object, not the film object itself.
-    // a potential solution might be another ajax request using https://api.themoviedb.org/3/movie/${movieID} endpoint, and grabbing data from that for the results heading
-      // aka: instead of using the film object as a param for this method, grab the film's ID# for another ajax request, to grab the specific details (title, poster) & create a the heading. We can still push the same filmID param into the next method
-  console.log(searchResult);
-  filmApp.filmRec(searchResult.id);
-  // Create a heading "Since you enjoy <film title>, you may also like:"
-    // Include poster beside as well?
+filmApp.queryData = async (movieId) => {
+  const filmQuery = new URL(`${filmApp.tmdbURL}/movie/${movieId}`)
+  filmQuery.search = new URLSearchParams({
+    api_key:filmApp.tmdbApiKey,
+  })
+  const filmInfo = await fetch(filmQuery)
+    const response = await filmInfo.json();
+    return response;
 }
 
 
-  
 // Use film's ID# as param in second ajax request to grab recommended films
 // In separate method, display recommended film array
-filmApp.filmRec = (movieId) => {
+filmApp.filmRec = async (movieId) => {
   const userRec = new URL(`${filmApp.tmdbURL}/movie/${movieId}/recommendations`)
   userRec.search = new URLSearchParams({
     api_key:filmApp.tmdbApiKey,
   })
-  fetch(userRec)
-  .then((results) => {
-    return results.json();
-  })
-  .then((reco) => {
-    filmApp.resultReco(reco.results)
-  })
+  const recSearch = await fetch(userRec)
+    const response = await recSearch.json();
+    return response;
+    
+  // .then((results) => {
+  //   return results.json();
+  // })
+  // .then((reco) => {
+  //   filmApp.resultReco(reco.results)
+  // })
 }
 filmApp.resultReco = (resultArray) => {
   const resultGallery = document.createElement('div');
@@ -94,7 +97,35 @@ filmApp.resultReco = (resultArray) => {
 
   // each film displays (in a gallery-like presentation):
 
-  
+filmApp.displayResult = (filmId) => {
+  const queryData = filmApp.queryData(filmId);
+  queryData.then((film) => {
+    const {title, poster_path} = film
+    
+    //styling/DOM manipulation
+  })
+const getRecs = filmApp.filmRec(filmId);
+getRecs.then((recs) => {
+  const resultArray = recs.results;
+  const resultGallery = document.createElement('div');
+  resultGallery.classList.add('resultGallery');
+  resultArray.forEach((rec) =>{
+    const {title, poster_path, overview, id} = rec
+    const resultContainer = document.createElement('div')
+    resultContainer.classList.add('resultContainer');
+    resultContainer.innerHTML = `
+      <img src="${filmApp.posterBaseURL}${poster_path}" alt="poster of ${title}">
+      <div class="resultOverlay">
+        <h3>${title}</h3>
+        <p>${overview}</p>
+      </div>
+      `
+      resultGallery.appendChild(resultContainer);
+  })
+  filmApp.results.appendChild(resultGallery);
+});
+
+}
 
     // film Poster
     // Film Title
