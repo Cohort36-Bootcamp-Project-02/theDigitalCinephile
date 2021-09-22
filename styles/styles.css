@@ -260,3 +260,17 @@ img {
           flex: 1 1 calc(30% - 25px);
   padding: 25px;
 }
+
+.resultGallery {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.resultGallery .resultContainer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 30%;
+          flex: 1 1 30%;
+  padding: 15px;
+}

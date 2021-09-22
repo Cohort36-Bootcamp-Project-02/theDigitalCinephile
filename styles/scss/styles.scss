@@ -11,3 +11,12 @@
     padding:25px;
   }
 }
+
+.resultGallery {
+  display:flex;
+  flex-wrap:wrap;
+  .resultContainer {
+    flex:1 1 30%;
+    padding:15px;
+  }
+}
