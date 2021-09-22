@@ -111,16 +111,31 @@ getRecs.then((recs) => {
   resultGallery.classList.add('resultGallery');
   resultArray.forEach((rec) =>{
     const {title, poster_path, overview, id} = rec
-    const resultContainer = document.createElement('div')
+    const resultContainer = document.createElement('div');
     resultContainer.classList.add('resultContainer');
-    resultContainer.innerHTML = `
-      <img src="${filmApp.posterBaseURL}${poster_path}" alt="poster of ${title}">
-      <div class="resultOverlay">
-        <h3>${title}</h3>
-        <p>${overview}</p>
-      </div>
-      `
+    const overlayElement = document.createElement('div')
+    overlayElement.classList.add('resultOverlay')
+    overlayElement.innerHTML = `
+    <h3>${title}</h3>
+    <p>${overview}</p>
+    `
+    const resImg = document.createElement('img')
+    resImg.src = `${filmApp.posterBaseURL}${poster_path}`
+    resImg.alt = `poster of ${title}`
+      resultContainer.appendChild(resImg)
+      resultContainer.appendChild(overlayElement)
       resultGallery.appendChild(resultContainer);
+      const trailers = filmApp.getTrailers(id)
+      trailers 
+      .then((trailer) => {
+        if(trailer) {
+          const {key} = trailer
+          const ytLink = `${filmApp.youtubeURL}?v=${key}`
+          const trailerButton = document.createElement('button')
+          trailerButton.innerHTML = `<a href="${ytLink}"> Watch Trailer! </a>`
+          resultContainer.appendChild(trailerButton)
+        }
+      })
   })
   filmApp.results.appendChild(resultGallery);
 });
