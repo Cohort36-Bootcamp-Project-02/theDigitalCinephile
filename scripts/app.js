@@ -40,10 +40,21 @@ filmApp.filmSearch = (query) => {
   })
   fetch(userSearch)
   .then((results) => {
-    return results.json();
+    if(results.ok) {
+      return results.json();
+    } else {
+      throw new Error(results.statusText)
+    }
   })
   .then((data) => {
-    filmApp.refineSearch(data.results)
+    const searchResults = data.results
+    if(searchResults.length === 0){
+      throw new Error("No Results")
+    } else {
+      filmApp.refineSearch(searchResults)
+    }
+  }).catch((error) => {
+    console.log(error)
   })
 }
 // Get data for the film the user entered (ID, title, poster)
