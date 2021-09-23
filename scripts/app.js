@@ -55,6 +55,15 @@ filmApp.filmSearch = (query) => {
     }
   }).catch((error) => {
     console.log(error)
+    const queryError = document.createElement('h4')
+    if(error = "Unprocessable Entity"){
+      queryError.textContent = `Please enter the name of a film and try again!`
+      filmApp.results.appendChild(queryError)
+    } else if(error = "No Results") {
+      queryError.textContent = `Sorry! I couldn't find that film! Maybe check the spelling?`
+    } else {
+      queryError.textContent = `Sorry! Something happened and I don't know what it was! Please try again.`
+    }
   })
 }
 // Get data for the film the user entered (ID, title, poster)
@@ -79,13 +88,6 @@ filmApp.filmRec = async (movieId) => {
   const recSearch = await fetch(userRec)
     const response = await recSearch.json();
     return response;
-    
-  // .then((results) => {
-  //   return results.json();
-  // })
-  // .then((reco) => {
-  //   filmApp.resultReco(reco.results)
-  // })
 }
 filmApp.resultReco = (resultArray) => {
   const resultGallery = document.createElement('div');
@@ -114,59 +116,66 @@ filmApp.displayResult = (filmId) => {
   queryData.then((film) => {
     const {title, poster_path} = film
     
+    // Since you like {title}, you may also like:
     //styling/DOM manipulation
   })
 const getRecs = filmApp.filmRec(filmId);
 getRecs.then((recs) => {
-  const resultArray = recs.results;
-  const resultGallery = document.createElement('div');
-  resultGallery.classList.add('resultGallery');
-  resultArray.forEach((rec) =>{
-    const {title, poster_path, overview, id} = rec
-    const resultContainer = document.createElement('div');
-    resultContainer.classList.add('resultContainer');
-    const overlayElement = document.createElement('div')
-    overlayElement.classList.add('resultOverlay')
-    overlayElement.innerHTML = `
-    <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
-    <p>${overview.substring(0,200)}...</p>
-    `
-    const resImg = document.createElement('img')
-    resImg.src = `${filmApp.posterBaseURL}${poster_path}`
-    resImg.alt = `poster of ${title}`
-      resultContainer.appendChild(resImg)
-      resultContainer.appendChild(overlayElement)
-      resultGallery.appendChild(resultContainer);
-      const trailers = filmApp.getTrailers(id)
-      trailers 
-      .then((trailer) => {
-        if(trailer) {
-          const {key} = trailer
-          const ytLink = `${filmApp.youtubeURL}?v=${key}`
-          const trailerButton = document.createElement('button')
-          trailerButton.innerHTML = `<a href="${ytLink}"> Watch Trailer! </a>`
-          overlayElement.appendChild(trailerButton)
-        }
+    const resultArray = recs.results;
+    const resultGallery = document.createElement('div');
+    resultGallery.classList.add('resultGallery');
+    if(resultArray.length > 0) {
+      resultArray.forEach((rec) =>{
+        const {title, poster_path, overview, id} = rec
+        const resultContainer = document.createElement('div');
+        resultContainer.classList.add('resultContainer');
+        const overlayElement = document.createElement('div')
+        overlayElement.classList.add('resultOverlay')
+        overlayElement.innerHTML = `
+        <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
+        <p>${overview.substring(0,200)}...</p>
+        `
+        const resImg = document.createElement('img')
+        resImg.src = `${filmApp.posterBaseURL}${poster_path}`
+        resImg.alt = `poster of ${title}`
+          resultContainer.appendChild(resImg)
+          resultContainer.appendChild(overlayElement)
+          resultGallery.appendChild(resultContainer);
+          const trailers = filmApp.getTrailers(id)
+          trailers 
+          .then((trailer) => {
+            if(trailer) {
+              const {key} = trailer
+              const ytLink = `${filmApp.youtubeURL}?v=${key}`
+              const trailerButton = document.createElement('button')
+              trailerButton.innerHTML = `<a href="${ytLink}"> Watch Trailer! </a>`
+              overlayElement.appendChild(trailerButton)
+            }
+          })    
+          const moreRecs = document.createElement('button')
+          moreRecs.value = id
+          moreRecs.classList.add('moreRecs')
+          moreRecs.textContent = `More Recommendations!`
+          overlayElement.appendChild(moreRecs)
       })
-
-      const moreRecs = document.createElement('button')
-      moreRecs.value = id
-      moreRecs.classList.add('moreRecs')
-      moreRecs.textContent = `More Recommendations!`
-      overlayElement.appendChild(moreRecs)
-  })
-  filmApp.results.appendChild(resultGallery);
-
-  const recButtons = document.querySelectorAll('.moreRecs')
-  recButtons.forEach((button) => {
-    button.addEventListener('click', function() {
-        recValue = this.value
-        filmApp.results.innerHTML = '';
-        filmApp.displayResult(recValue)
-    })
-  })
-});
-
+      filmApp.results.appendChild(resultGallery);
+    
+      const recButtons = document.querySelectorAll('.moreRecs')
+      recButtons.forEach((button) => {
+        button.addEventListener('click', function() {
+            recValue = this.value
+            filmApp.results.innerHTML = '';
+            filmApp.displayResult(recValue)
+        })
+      })
+    } else {
+      throw new Error("No Recommendations!")
+    }
+}).catch((error) => {
+  const recError = document.createElement('h4')
+  recError.textContent = `No Recommendations! Try another film?`
+  filmApp.results.appendChild(recError)
+})
 }
 
     // film Poster
