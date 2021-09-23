@@ -117,7 +117,7 @@ getRecs.then((recs) => {
     overlayElement.classList.add('resultOverlay')
     overlayElement.innerHTML = `
     <h3>${title}</h3>
-    <p>${overview}</p>
+    <p>${overview.substring(0,200)}...</p>
     `
     const resImg = document.createElement('img')
     resImg.src = `${filmApp.posterBaseURL}${poster_path}`
@@ -133,7 +133,7 @@ getRecs.then((recs) => {
           const ytLink = `${filmApp.youtubeURL}?v=${key}`
           const trailerButton = document.createElement('button')
           trailerButton.innerHTML = `<a href="${ytLink}"> Watch Trailer! </a>`
-          resultContainer.appendChild(trailerButton)
+          overlayElement.appendChild(trailerButton)
         }
       })
   })

@@ -2,21 +2,4 @@
 @import 'setup';
 @import 'typography';
 
-
-.refineGallery {
-  display:flex;
-  flex-wrap:wrap;
-  .refineContainer {
-    flex:1 1 calc(30% - 25px);
-    padding:25px;
-  }
-}
-
-.resultGallery {
-  display:flex;
-  flex-wrap:wrap;
-  .resultContainer {
-    flex:1 1 30%;
-    padding:15px;
-  }
-}
+@import 'homePage';
