@@ -2,6 +2,7 @@
 const filmApp = {}
 
 // API properties
+filmApp.tmdbMovieURL = `https://www.themoviedb.org/movie`
 filmApp.tmdbURL = `https://api.themoviedb.org/3`
 filmApp.tmdbApiKey = `6466215c94f1a824318fbdb48759e82e`
 filmApp.posterBaseURL = `https://image.tmdb.org/t/p/original`
@@ -85,7 +86,7 @@ filmApp.resultReco = (resultArray) => {
     resultContainer.innerHTML = `
       <img src="${filmApp.posterBaseURL}${poster_path}" alt="poster of ${title}">
       <div class="resultOverlay">
-        <h3>${title}</h3>
+
         <p>${overview}</p>
       </div>
       `
@@ -116,7 +117,7 @@ getRecs.then((recs) => {
     const overlayElement = document.createElement('div')
     overlayElement.classList.add('resultOverlay')
     overlayElement.innerHTML = `
-    <h3>${title}</h3>
+    <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
     <p>${overview}</p>
     `
     const resImg = document.createElement('img')
@@ -136,8 +137,23 @@ getRecs.then((recs) => {
           resultContainer.appendChild(trailerButton)
         }
       })
+
+      const moreRecs = document.createElement('button')
+      moreRecs.value = id
+      moreRecs.classList.add('moreRecs')
+      moreRecs.textContent = `More Recommendations!`
+      overlayElement.appendChild(moreRecs)
   })
   filmApp.results.appendChild(resultGallery);
+
+  const recButtons = document.querySelectorAll('.moreRecs')
+  recButtons.forEach((button) => {
+    button.addEventListener('click', function() {
+        recValue = this.value
+        filmApp.results.innerHTML = '';
+        filmApp.displayResult(recValue)
+    })
+  })
 });
 
 }
