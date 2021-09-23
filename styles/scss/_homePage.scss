@@ -1,6 +1,81 @@
 
 body {
-  background: $tertiaryColor;
+  // background: $tertiaryColor;
   // background: linear-gradient(180deg, rgba(144,206,161,1) 0%, rgba(1,180,228,1) 50%, rgba(144,206,161,1) 100%); 
 }
 
+
+.refineGallery {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: space-between;
+  margin: 0 -15px;
+  .refineContainer {
+    flex:1 1 30%;
+    min-width: 340px;
+    margin:15px;
+  }
+}
+
+.resultGallery {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: space-between;
+  margin:0 -15px;
+  .resultContainer {
+    position: relative;
+    flex:1 1 30%;
+    min-width: 340px;
+    margin:15px;
+  }
+}
+
+
+.resultOverlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);	
+  display:flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  opacity: 0;
+  color: $colorWhite;
+  padding:1rem;
+}
+
+.resultOverlay:hover {
+  opacity: 1;
+}
+
+
+
+//responsive design for small desktop screens
+@media (max-width: 940px) {
+
+}
+
+//responsive design for tablets
+@media (max-width: 768px) {
+
+}
+
+//responsive design for phones
+@media (max-width: 480px) {
+
+  .refineGallery {
+    .refineContainer {
+      min-width: 300px;
+    }
+  }
+
+  .resultGallery {
+
+    .resultContainer {
+      min-width: 300px;
+    }
+  }
+
+
+}
