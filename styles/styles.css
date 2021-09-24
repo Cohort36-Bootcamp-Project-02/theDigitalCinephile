@@ -314,8 +314,15 @@ html {
   padding: 1rem;
 }
 
-.resultOverlay:hover {
+.resultContainer:hover .resultOverlay,
+.resultContainer:focus-within .resultOverlay {
   opacity: 1;
+}
+
+.resultContainer:hover img,
+.resultContainer:focus-within img {
+  -webkit-filter: blur(5px);
+          filter: blur(5px);
 }
 
 @media (max-width: 480px) {

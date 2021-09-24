@@ -45,11 +45,17 @@
   padding:1rem;
 }
 
-.resultOverlay:hover {
+.resultContainer:hover .resultOverlay,
+.resultContainer:focus-within .resultOverlay {
   opacity: 1;
 }
 
-
+.resultContainer:hover,
+.resultContainer:focus-within {
+  img {
+    filter:blur(5px)
+  }
+}
 
 //responsive design for small desktop screens
 @media (max-width: 940px) {

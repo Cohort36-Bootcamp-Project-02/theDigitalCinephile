@@ -112,9 +112,9 @@ getRecs.then((recs) => {
         const overlayElement = document.createElement('div')
         overlayElement.classList.add('resultOverlay')
         overlayElement.innerHTML = `
-        <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
-        <p>${overview.substring(0,200)}...</p>
-        `
+          <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
+          <p>${overview.substring(0,200)}...</p>
+          `
         const resImg = document.createElement('img')
         resImg.src = `${filmApp.posterBaseURL}${poster_path}`
         resImg.alt = `poster of ${title}`
@@ -153,8 +153,13 @@ getRecs.then((recs) => {
     }
 }).catch((error) => {
   const recError = document.createElement('h4')
-  recError.textContent = `No Recommendations! Try another film?`
-  filmApp.results.appendChild(recError)
+  if(error.message === "No Recommendations!"){
+    recError.textContent = `No Recommendations! Try another film?`
+    filmApp.results.appendChild(recError)
+  } else {
+    recError.textContent = `Sorry! Something happened and I don't know what it was! Please try again.`
+    filmApp.results.appendChild(recError)
+  }
 })
 }
 
