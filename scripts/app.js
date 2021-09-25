@@ -142,7 +142,6 @@ getRecs.then((recs) => {
         overlayElement.classList.add('resultOverlay')
         overlayElement.innerHTML = `
           <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
-          <div>
             <p>User Rating:</p>
             <div><span>${filmApp.getRoundedNum(vote_average)}</span></div>
           </div>
@@ -159,9 +158,13 @@ getRecs.then((recs) => {
           .then((trailer) => {
             if(trailer) {
               const {key} = trailer
+              const trailerButton = document.createElement('a')
               const ytLink = `${filmApp.youtubeURL}?v=${key}`
-              const trailerButton = document.createElement('button')
-              trailerButton.innerHTML = `<a href="${ytLink}"> Watch Trailer! </a>`
+              trailerButton.classList.add('trailerLink')
+              trailerButton.href = ytLink
+              trailerButton.innerHTML = `
+              <button>Watch Trailer</button>
+              `
               overlayElement.appendChild(trailerButton)
             }
           })    
@@ -172,7 +175,7 @@ getRecs.then((recs) => {
           overlayElement.appendChild(moreRecs)
       })
       filmApp.results.appendChild(resultGallery);
-    
+
       const recButtons = document.querySelectorAll('.moreRecs')
       recButtons.forEach((button) => {
         button.addEventListener('click', function() {
@@ -180,7 +183,7 @@ getRecs.then((recs) => {
             filmApp.results.innerHTML = '';
             filmApp.displayResult(recValue)
         })
-      })
+    })
     } else {
       throw new Error("No Recommendations!")
     }
@@ -195,6 +198,7 @@ getRecs.then((recs) => {
   }
 })
 }
+
 
 // call app.init
 filmApp.init();

@@ -268,17 +268,69 @@ p {
   font-weight: normal;
 }
 
-h1 {
-  color: #ffffff;
+p,
+label,
+input,
+select,
+button {
+  font-family: "Source Sans Pro", sans-serif;
 }
 
-body {
-  background-color: #90cea1;
+a {
+  text-decoration: none;
+}
+
+nav .title {
+  color: #ffffff;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+h1 {
+  color: #90cea1;
+  text-shadow: #0d253f 2px 5px;
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  text-shadow: #000000 2px 5px;
+}
+
+h4 {
+  padding: 50px 0;
+  text-align: center;
+  font-family: "Epilogue", sans-serif;
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.resultOverlay h3 {
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+.resultOverlay h3:hover,
+.resultOverlay h3:focus {
+  color: #01b4e4;
+}
+.resultOverlay button {
+  color: #ffffff;
+  font-weight: 700;
+}
+.resultOverlay button:active {
+  background: #01b4e4;
 }
 
 header {
-  padding: 0.5rem 0;
-  background-color: #0d253f;
+  padding: 1rem 0;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #0d253f), color-stop(10%, #01b4e4), color-stop(15%, #90cea1), color-stop(20%, #0d253f), color-stop(80%, #0d253f), color-stop(85%, #90cea1), color-stop(90%, #01b4e4), to(#0d253f));
+  background: linear-gradient(180deg, #0d253f 5%, #01b4e4 10%, #90cea1 15%, #0d253f 20%, #0d253f 80%, #90cea1 85%, #01b4e4 90%, #0d253f 100%);
   -webkit-box-shadow: 0 0 1rem black;
           box-shadow: 0 0 1rem black;
 }
@@ -292,6 +344,12 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .logo {
@@ -325,6 +383,22 @@ h1 {
       flex-wrap: wrap;
 }
 
+.userSearch {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #0d253f), color-stop(6%, #01b4e4), color-stop(8%, #90cea1), color-stop(10%, #ffffff), color-stop(95%, #ffffff), color-stop(96%, #90cea1), color-stop(98%, #01b4e4), to(#0d253f));
+  background: linear-gradient(180deg, #0d253f 5%, #01b4e4 6%, #90cea1 8%, #ffffff 10%, #ffffff 95%, #90cea1 96%, #01b4e4 98%, #0d253f 100%);
+}
+
+section:nth-child(2),
+section:nth-child(3) {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #0d253f), color-stop(10%, #01b4e4), color-stop(15%, #90cea1), color-stop(20%, #0d253f), color-stop(80%, #0d253f), color-stop(85%, #90cea1), color-stop(90%, #01b4e4), to(#0d253f));
+  background: linear-gradient(180deg, #0d253f 5%, #01b4e4 10%, #90cea1 15%, #0d253f 20%, #0d253f 80%, #90cea1 85%, #01b4e4 90%, #0d253f 100%);
+}
+
+.refineGallery,
+.resultGallery {
+  padding: 50px 0;
+}
+
 .trendingFilms {
   min-height: 75vh;
 }
@@ -342,6 +416,10 @@ h1 {
           flex: 2 1 55%;
 }
 
+.searchForm {
+  -ms-flex-item-align: center;
+      align-self: center;
+}
 .searchForm span {
   font-style: italic;
   font-weight: 700;
@@ -370,6 +448,22 @@ h1 {
   margin: 15px;
 }
 
+.refineContainer button,
+.resultGallery button {
+  background: #90cea1;
+  color: #ffffff;
+  border: solid #0d253f 2px;
+  font-weight: 800;
+  padding: 10px;
+  border-radius: 15px;
+  width: 100%;
+}
+.refineContainer button button:active,
+.resultGallery button button:active {
+  background: #01b4e4;
+  color: #0d253f;
+}
+
 .resultGallery {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -389,13 +483,16 @@ h1 {
   min-width: 340px;
   margin: 15px;
 }
+.resultGallery .resultContainer .resultOverlay,
+.resultGallery .resultContainer img {
+  border-radius: 15px;
+}
 
 .resultOverlay {
   position: absolute;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -403,6 +500,7 @@ h1 {
   -webkit-box-direction: normal;
       -ms-flex-flow: column wrap;
           flex-flow: column wrap;
+  background-color: rgba(0, 0, 0, 0.75);
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;

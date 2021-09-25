@@ -1,12 +1,12 @@
 
-body {
-  background-color: $colorTertiary;
-}
+// body {
+//   background-color: $colorTertiary;
+// }
 
 //header
 header {
-  padding: .5rem 0;
-  background-color: $colorMain;
+  padding: 1rem 0;
+  @include gradientNavy;
   box-shadow: 0 0 1rem black;
 }
 
@@ -17,6 +17,8 @@ footer {
 
 .siteHead {
   display:flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -45,6 +47,20 @@ h1 {
   flex-wrap:wrap;
 }
 
+.userSearch{
+  @include gradientWhite
+}
+
+section:nth-child(2),
+section:nth-child(3){
+  @include gradientNavy
+}
+
+.refineGallery,
+.resultGallery {
+  padding:50px 0;
+}
+
 
 .trendingFilms {
   min-height:75vh;
@@ -64,6 +80,7 @@ h1 {
     font-style:italic;
     font-weight:700;
   }
+  align-self:center;
 }
 
 .trendingFilms {
@@ -80,6 +97,15 @@ h1 {
     flex:1 1 30%;
     min-width: 340px;
     margin:15px;
+
+  }
+}
+
+.refineContainer,
+.resultGallery {
+  button {
+    @include buttonStyle;
+    width:100%;
   }
 }
 
@@ -93,6 +119,10 @@ h1 {
     flex:1 1 30%;
     min-width: 340px;
     margin:15px;
+    .resultOverlay,
+    img {
+      border-radius:15px;
+    }
   }
 }
 
@@ -102,9 +132,9 @@ h1 {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.75);	
   display:flex;
-  flex-flow: column wrap;
+  flex-flow:column wrap;
+  background-color: rgba(0, 0, 0, 0.75);	
   justify-content: space-between;
   opacity: 0;
   color: $colorWhite;
