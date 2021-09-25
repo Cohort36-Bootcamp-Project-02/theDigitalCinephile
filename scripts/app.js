@@ -51,7 +51,7 @@ filmApp.filmSearch = (query) => {
     if(searchResults.length === 0){
       throw new Error("No Results")
     } else {
-      filmApp.refineSearch(searchResults)
+        filmApp.filterSearch(searchResults, query)
     }
   }).catch((error) => {
     const queryError = document.createElement('h4')
@@ -67,6 +67,27 @@ filmApp.filmSearch = (query) => {
     }
   })
 }
+
+filmApp.filterSearch = (results, userQuery) => {
+  if(results[0].title == userQuery || results[1].title == userQuery) {
+    const filterQuery = results.filter((film) => {
+      const {title, poster_path} = film
+      return(title === userQuery && poster_path !== null)
+    })
+    if(filterQuery.length == 1){
+      const queryID = filterQuery[0].id
+      filmApp.displayResult(queryID)
+    } else {
+      filmApp.refineSearch(filterQuery)
+    }
+  } else {
+    filmApp.refineSearch(results)
+  }
+}
+  // send results[0].id to displayResults()
+
+
+  // send searchResults to refineSearch();
 // Get data for the film the user entered (ID, title, poster)
 filmApp.queryData = async (movieId) => {
   const filmQuery = new URL(`${filmApp.tmdbURL}/movie/${movieId}`)
@@ -95,7 +116,6 @@ filmApp.displayResult = (filmId) => {
   const queryData = filmApp.queryData(filmId);
   queryData.then((film) => {
     const {title, poster_path} = film
-    
     // Since you like {title}, you may also like:
     //styling/DOM manipulation
   })
@@ -108,7 +128,9 @@ filmApp.getRoundedNum = (num) => {
 
 const getRecs = filmApp.filmRec(filmId);
 getRecs.then((recs) => {
-    const resultArray = recs.results;
+    const resultArray = recs.results.filter((films) => {
+      return(films.poster_path !== null)
+    });
     const resultGallery = document.createElement('div');
     resultGallery.classList.add('resultGallery');
     if(resultArray.length > 0) {
