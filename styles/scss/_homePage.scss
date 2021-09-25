@@ -10,15 +10,30 @@ header {
   box-shadow: 0 0 1rem black;
 }
 
+header,
+footer {
+  min-height:12.5vh;
+}
+
+.siteHead {
+  display:flex;
+}
+
+
 .logo {
   display: flex;
   align-items: center;
   width: 2.5rem;
   height: 2.5rem;
+  margin-right:50px;
 }
 
 
 //form
+
+fieldset {
+  border:none;
+}
 
 h1 {
   font-weight: 800;
@@ -26,11 +41,33 @@ h1 {
 
 .userSearch {
   display:flex;
+  justify-content: space-between;
+  flex-wrap:wrap;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
+
+.trendingFilms {
+  min-height:75vh;
+}
+
+.searchForm {
+  flex:1 2 45%;
+  padding:25px 15px;
+}
+
+.trendingFilms {
+  flex:2 1 55%;
+}
+
+.searchForm {
+  span {
+    font-style:italic;
+    font-weight:700;
+  }
+}
+
+.trendingFilms {
+  background:url(../assets/curtain.png)
 }
 
 

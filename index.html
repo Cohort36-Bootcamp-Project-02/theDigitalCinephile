@@ -12,46 +12,46 @@
 </head>
 <body>
   <header>
-    <div class="wrapper">
-      <nav>
-        <div class="logo">
-					<a href="./index.html"><img src="./assets/logo.png" alt=""></a>
-        </div>
-        <h1>Movie and TV Recommendations Generator!</h1>
-
-      </nav>
-    </div>
+    <nav class="siteHead wrapper">
+      <div class="logo">
+        <a href="./index.html"><img src="./assets/logo.png" alt=""></a>
+      </div>
+      <h1>The Digital Cinephile!</h1>
+    </nav>
   </header>
   <main>
-    <section class="userSearch wrapper">
-      <div class="form">
-        <h2>Get me some recommendations!</h2>
-        <form action=" " class="filmSearch">
-          <div class="productionSearch">
-            <label for="criteria">Please choose Movie production or TV production:</label>
-            <select name="productionType" id="productionType">
-              <option value="">movies</option>
-              <option value="1">TV</option>
+    <section class="userSearch">
+      <div class="searchForm">
+        <p>Enter the name of your favourite movie or TV Show, and <span>The Digital Cinephile</span> will automatically recommend a collection of similar films (or TV Shows) for you to enjoy! </p>
+        <form action="" class="filmSearch">
+          <fieldset class="mediaSearch">
+            <label for="criteria">Please select the type of media you want recommendations for:</label>
+            <select name="criteria" id="criteria">
+              <option value="null" selected disabled>Please Select</option>
+              <option value="movie">Movies</option>
+              <option value="tv">TV Shows</option>
             </select>
-          </div>
-          <div class="searchTitle">
+          </fieldset>
+          <fieldset>
             <label for="searchFilmTitle"> Enter the name of a movie</label>
             <input type="search" name="searchFilmTitle" id="searchFilmTitle">
-            <button type="submit">Get Recommendations!</button>
-          </div>
+          </fieldset>
+          <fieldset>
+            <button type="submit">Get Recommendations</button>
+          </fieldset>
         </form>
+        <div class="queryResult">
+          
+        </div>
       </div>
-      <div class="searchImg">
-        <img src="./assets/curtain.png" alt="A crowd of people antipating the start of a movie or TV show">
+      <div class="trendingFilms">
+        
       </div>
     </section>
     <section class="refineSearch wrapper">
 
     </section>
-    <section class="wrapper">
-      <div class="results">
-
-      </div>
+    <section class=" results wrapper">
     </section>
   </main>
   <footer>
