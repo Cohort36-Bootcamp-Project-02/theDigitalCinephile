@@ -1,24 +1,41 @@
 
-body {
-  background-color: $colorTertiary;
-}
+// body {
+//   background-color: $colorTertiary;
+// }
 
 //header
 header {
-  padding: .5rem 0;
-  background-color: $colorMain;
+  padding: 1rem 0;
+  @include gradientNavy;
   box-shadow: 0 0 1rem black;
 }
+
+header,
+footer {
+  min-height:12.5vh;
+}
+
+.siteHead {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .logo {
   display: flex;
   align-items: center;
   width: 2.5rem;
   height: 2.5rem;
+  margin-right:50px;
 }
 
 
 //form
+
+fieldset {
+  border:none;
+}
 
 h1 {
   font-weight: 800;
@@ -26,11 +43,48 @@ h1 {
 
 .userSearch {
   display:flex;
+  justify-content: space-between;
+  flex-wrap:wrap;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
+.userSearch{
+  @include gradientWhite
+}
+
+section:nth-child(2),
+section:nth-child(3){
+  @include gradientNavy
+}
+
+.refineGallery,
+.resultGallery {
+  padding:50px 0;
+}
+
+
+.trendingFilms {
+  min-height:75vh;
+}
+
+.searchForm {
+  flex:1 2 45%;
+  padding:25px 15px;
+}
+
+.trendingFilms {
+  flex:2 1 55%;
+}
+
+.searchForm {
+  span {
+    font-style:italic;
+    font-weight:700;
+  }
+  align-self:center;
+}
+
+.trendingFilms {
+  background:url(../assets/curtain.png)
 }
 
 
@@ -43,6 +97,15 @@ h1 {
     flex:1 1 30%;
     min-width: 340px;
     margin:15px;
+
+  }
+}
+
+.refineContainer,
+.resultGallery {
+  button {
+    @include buttonStyle;
+    width:100%;
   }
 }
 
@@ -56,6 +119,10 @@ h1 {
     flex:1 1 30%;
     min-width: 340px;
     margin:15px;
+    .resultOverlay,
+    img {
+      border-radius:15px;
+    }
   }
 }
 
@@ -65,9 +132,9 @@ h1 {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.75);	
   display:flex;
-  flex-flow: column wrap;
+  flex-flow:column wrap;
+  background-color: rgba(0, 0, 0, 0.75);	
   justify-content: space-between;
   opacity: 0;
   color: $colorWhite;

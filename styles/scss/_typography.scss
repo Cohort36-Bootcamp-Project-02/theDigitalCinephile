@@ -18,3 +18,66 @@ p {
   padding: 0;
   font-weight: normal;
 }
+
+p,
+label,
+input,
+select,
+button {
+  font-family:$fontStyleBody
+}
+
+a {
+  text-decoration:none;
+}
+
+nav {
+  .title {
+    color:$colorWhite;
+    font-family:$fontStyleBody;
+    font-weight:800;
+    font-size:2rem;
+  }
+}
+
+h1 {
+  color:$colorTertiary;
+  text-shadow:$colorMain 2px 5px;
+  font-size:3rem;
+}
+
+h2 {
+  font-size:2.5rem;
+  color:$colorWhite;
+  text-shadow:$colorBlack 2px 5px;
+}
+
+h4 {
+  padding:50px 0;
+  text-align:center;
+  font-family:$fontStyleMain;
+  font-size:1.5rem;
+  color:$colorWhite;
+  font-weight:700;
+}
+
+.resultOverlay {
+    h3 {
+      font-size:2rem;
+      text-align:center;
+      letter-spacing:0.1rem;
+      color:$colorWhite;
+      font-weight:700;
+    }
+    h3:hover,
+    h3:focus {
+      color:$colorSecondary;
+    }
+    button {
+      color:$colorWhite;
+      font-weight:700;
+    }
+    button:active {
+      background:$colorSecondary;
+    }
+}

@@ -133,7 +133,7 @@ getRecs.then((recs) => {
     const resultArray = recs.results.filter((films) => {
       return(films.poster_path !== null)
     });
-    filmApp.display(filmApp.results, resultArray);
+  filmApp.display(filmApp.results, resultArray);
   }).catch((error) => {
     const recError = document.createElement('h4')
     if(error.message === "No Recommendations!"){
@@ -196,9 +196,12 @@ filmApp.display = (htmlElement, resultArray) => {
           if(trailer) {
             const {key} = trailer
             const ytLink = `${filmApp.youtubeURL}?v=${key}`
-            const trailerButton = document.createElement('button')
-            trailerButton.innerHTML = `<a href="${ytLink}"> Watch Trailer! </a>`
-            overlayElement.appendChild(trailerButton)
+            const trailerButton = document.createElement('a')
+            trailerButton.classList.add('trailerLink')
+            trailerButton.href = ytLink
+            trailerButton.innerHTML = `
+            <button>Watch Trailer</button>
+            ` 
           }
         })    
         const moreRecs = document.createElement('button')
@@ -221,6 +224,7 @@ filmApp.display = (htmlElement, resultArray) => {
     throw new Error("No Recommendations!")
   }
 }
+
 
 // call app.init
 filmApp.init();

@@ -1,7 +1,7 @@
 
 //font
 $fontStyleMain: 'Epilogue', sans-serif;
-
+$fontStyleBody: 'Source Sans Pro', sans-serif;
 
 //Font Colour
 $colorMain: #0d253f;
@@ -9,3 +9,26 @@ $colorSecondary:#01b4e4;
 $colorTertiary: #90cea1;
 $colorWhite: #ffffff;
 $colorBlack: #000000;
+
+
+@mixin gradientWhite {
+  background:linear-gradient(180deg, $colorMain 5%, $colorSecondary 6%, $colorTertiary 8%, $colorWhite 10%, $colorWhite 95%, $colorTertiary 96%, $colorSecondary 98%, $colorMain 100%);
+}
+
+@mixin gradientNavy {
+  background:linear-gradient(180deg, $colorMain 5%, $colorSecondary 10%, $colorTertiary 15%, $colorMain 20%, $colorMain 80%, $colorTertiary 85%, $colorSecondary 90%, $colorMain 100%);
+}
+
+
+@mixin buttonStyle {
+  background:$colorTertiary;
+  color:$colorWhite;
+  border:solid $colorMain 2px;
+  font-weight:800;
+  padding:10px;
+  border-radius:15px;
+  button:active{
+    background:$colorSecondary;
+    color:$colorMain
+  }
+}
