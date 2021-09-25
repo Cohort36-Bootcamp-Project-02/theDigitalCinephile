@@ -54,15 +54,16 @@ filmApp.filmSearch = (query) => {
       filmApp.refineSearch(searchResults)
     }
   }).catch((error) => {
-    console.log(error)
     const queryError = document.createElement('h4')
-    if(error = "Unprocessable Entity"){
+    if(error.message === "Unprocessable Entity"){
       queryError.textContent = `Please enter the name of a film and try again!`
       filmApp.results.appendChild(queryError)
-    } else if(error = "No Results") {
+    } else if(error.message === "No Results") {
       queryError.textContent = `Sorry! I couldn't find that film! Maybe check the spelling?`
+      filmApp.results.appendChild(queryError)
     } else {
       queryError.textContent = `Sorry! Something happened and I don't know what it was! Please try again.`
+      filmApp.results.appendChild(queryError)
     }
   })
 }
@@ -89,27 +90,6 @@ filmApp.filmRec = async (movieId) => {
     const response = await recSearch.json();
     return response;
 }
-filmApp.resultReco = (resultArray) => {
-  const resultGallery = document.createElement('div');
-  resultGallery.classList.add('resultGallery');
-  resultArray.forEach((rec) =>{
-    const {title, poster_path, overview, id} = rec
-    const resultContainer = document.createElement('div')
-    resultContainer.classList.add('resultContainer');
-    resultContainer.innerHTML = `
-      <img src="${filmApp.posterBaseURL}${poster_path}" alt="poster of ${title}">
-      <div class="resultOverlay">
-
-        <p>${overview}</p>
-      </div>
-      `
-      resultGallery.appendChild(resultContainer);
-  })
-  filmApp.results.appendChild(resultGallery);
-}
-
-
-  // each film displays (in a gallery-like presentation):
 
 filmApp.displayResult = (filmId) => {
   const queryData = filmApp.queryData(filmId);
@@ -132,9 +112,9 @@ getRecs.then((recs) => {
         const overlayElement = document.createElement('div')
         overlayElement.classList.add('resultOverlay')
         overlayElement.innerHTML = `
-        <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
-        <p>${overview.substring(0,200)}...</p>
-        `
+          <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
+          <p>${overview.substring(0,200)}...</p>
+          `
         const resImg = document.createElement('img')
         resImg.src = `${filmApp.posterBaseURL}${poster_path}`
         resImg.alt = `poster of ${title}`
@@ -173,16 +153,15 @@ getRecs.then((recs) => {
     }
 }).catch((error) => {
   const recError = document.createElement('h4')
-  recError.textContent = `No Recommendations! Try another film?`
-  filmApp.results.appendChild(recError)
+  if(error.message === "No Recommendations!"){
+    recError.textContent = `No Recommendations! Try another film?`
+    filmApp.results.appendChild(recError)
+  } else {
+    recError.textContent = `Sorry! Something happened and I don't know what it was! Please try again.`
+    filmApp.results.appendChild(recError)
+  }
 })
 }
-
-    // film Poster
-    // Film Title
-    // Plot Summary
-      // Button to make another search for recommened films?
-        // take ID # of recommended film, use it in same previous ajax request to get a second-level of film recommendations
 
 // call app.init
 filmApp.init();
