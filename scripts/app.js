@@ -12,10 +12,12 @@ filmApp.youtubeURL = `https://youtube.com/watch`
 // HTML properties
 filmApp.searchForm = document.querySelector('.filmSearch')
 filmApp.results = document.querySelector('.results')
+filmApp.trending = document.querySelector('.trending')
 
 // app.init
 filmApp.init = () => {
   filmApp.userInput();
+  filmApp.getTrending();
 }
 
 // User form input => search for a movie
@@ -26,6 +28,7 @@ filmApp.userInput = () => {
     refineGallery.innerHTML = '';
     refineSection.innerHTML = '';
     filmApp.results.innerHTML = '';
+    filmApp.trending.innerHTML ='';
     filmApp.filmSearch(userQuery)
   })
 }
@@ -108,10 +111,15 @@ filmApp.filmRec = async (movieId) => {
     api_key:filmApp.tmdbApiKey,
   })
   const recSearch = await fetch(userRec)
-    const response = await recSearch.json();
-    return response;
+  const response = await recSearch.json();
+  return response;
 }
 
+//Rounding number to 1 decimal
+filmApp.getRoundedNum = (num) => {
+  const numRounded = (Math.round(num * 10) / 10).toFixed(1);
+  return numRounded;
+}
 filmApp.displayResult = (filmId) => {
   const queryData = filmApp.queryData(filmId);
   queryData.then((film) => {
@@ -120,80 +128,98 @@ filmApp.displayResult = (filmId) => {
     //styling/DOM manipulation
   })
 
-//Rounding number to 1 decimal
-filmApp.getRoundedNum = (num) => {
-  const numRounded = (Math.round(num * 10) / 10).toFixed(1);
-  return numRounded;
-}
-
 const getRecs = filmApp.filmRec(filmId);
 getRecs.then((recs) => {
     const resultArray = recs.results.filter((films) => {
       return(films.poster_path !== null)
     });
-    const resultGallery = document.createElement('div');
-    resultGallery.classList.add('resultGallery');
-    if(resultArray.length > 0) {
-      resultArray.forEach((rec) =>{
-        const {title, poster_path, overview, id, vote_average} = rec
-        const resultContainer = document.createElement('div');
-        resultContainer.classList.add('resultContainer');
-        const overlayElement = document.createElement('div')
-        overlayElement.classList.add('resultOverlay')
-        overlayElement.innerHTML = `
-          <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
-          <div>
-            <p>User Rating:</p>
-            <div><span>${filmApp.getRoundedNum(vote_average)}</span></div>
-          </div>
-          <p>${overview.substring(0,200)}...</p>
-          `
-        const resImg = document.createElement('img')
-        resImg.src = `${filmApp.posterBaseURL}${poster_path}`
-        resImg.alt = `poster of ${title}`
-          resultContainer.appendChild(resImg)
-          resultContainer.appendChild(overlayElement)
-          resultGallery.appendChild(resultContainer);
-          const trailers = filmApp.getTrailers(id)
-          trailers 
-          .then((trailer) => {
-            if(trailer) {
-              const {key} = trailer
-              const ytLink = `${filmApp.youtubeURL}?v=${key}`
-              const trailerButton = document.createElement('button')
-              trailerButton.innerHTML = `<a href="${ytLink}"> Watch Trailer! </a>`
-              overlayElement.appendChild(trailerButton)
-            }
-          })    
-          const moreRecs = document.createElement('button')
-          moreRecs.value = id
-          moreRecs.classList.add('moreRecs')
-          moreRecs.textContent = `More Recommendations!`
-          overlayElement.appendChild(moreRecs)
-      })
-      filmApp.results.appendChild(resultGallery);
-    
-      const recButtons = document.querySelectorAll('.moreRecs')
-      recButtons.forEach((button) => {
-        button.addEventListener('click', function() {
-            recValue = this.value
-            filmApp.results.innerHTML = '';
-            filmApp.displayResult(recValue)
-        })
-      })
+    filmApp.display(filmApp.results, resultArray);
+  }).catch((error) => {
+    const recError = document.createElement('h4')
+    if(error.message === "No Recommendations!"){
+      recError.textContent = `No Recommendations! Try another film?`
+      filmApp.results.appendChild(recError)
     } else {
-      throw new Error("No Recommendations!")
+      recError.textContent = `Sorry! Something happened and I don't know what it was! Please try again.`
+      filmApp.results.appendChild(recError)
     }
-}).catch((error) => {
-  const recError = document.createElement('h4')
-  if(error.message === "No Recommendations!"){
-    recError.textContent = `No Recommendations! Try another film?`
-    filmApp.results.appendChild(recError)
+  })
+}
+
+
+//get API call for trending endpoint
+filmApp.getTrending = () => {
+  const trendingUrl = new URL(`${filmApp.tmdbURL}/trending/movie/day`)
+  trendingUrl.search = new URLSearchParams({
+    api_key:filmApp.tmdbApiKey
+  });
+  fetch(trendingUrl)
+  .then((response) =>{
+      return response.json();
+  })
+  .then((data) => {
+    const trendingResults = data.results.slice(0, 3)
+    filmApp.display(filmApp.trending, trendingResults);
+  })
+}
+
+// update page load with top trending for the past day
+
+
+filmApp.display = (htmlElement, resultArray) => {
+  const resultGallery = document.createElement('div');
+  resultGallery.classList.add('resultGallery');
+  if(resultArray.length > 0) {
+    resultArray.forEach((rec) =>{
+      const {title, poster_path, overview, id, vote_average} = rec
+      const resultContainer = document.createElement('div');
+      resultContainer.classList.add('resultContainer');
+      const overlayElement = document.createElement('div')
+      overlayElement.classList.add('resultOverlay')
+      overlayElement.innerHTML = `
+        <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
+        <div>
+          <p>User Rating:</p>
+          <div><span>${filmApp.getRoundedNum(vote_average)}</span></div>
+        </div>
+        <p>${overview.substring(0,200)}...</p>
+        `
+      const resImg = document.createElement('img')
+      resImg.src = `${filmApp.posterBaseURL}${poster_path}`
+      resImg.alt = `poster of ${title}`
+        resultContainer.appendChild(resImg)
+        resultContainer.appendChild(overlayElement)
+        resultGallery.appendChild(resultContainer);
+        const trailers = filmApp.getTrailers(id)
+        trailers 
+        .then((trailer) => {
+          if(trailer) {
+            const {key} = trailer
+            const ytLink = `${filmApp.youtubeURL}?v=${key}`
+            const trailerButton = document.createElement('button')
+            trailerButton.innerHTML = `<a href="${ytLink}"> Watch Trailer! </a>`
+            overlayElement.appendChild(trailerButton)
+          }
+        })    
+        const moreRecs = document.createElement('button')
+        moreRecs.value = id
+        moreRecs.classList.add('moreRecs')
+        moreRecs.textContent = `Get me some sweet movie recommendations!`
+        overlayElement.appendChild(moreRecs)
+    })
+    htmlElement.appendChild(resultGallery);
+  
+    const recButtons = document.querySelectorAll('.moreRecs')
+    recButtons.forEach((button) => {
+      button.addEventListener('click', function() {
+          recValue = this.value
+          htmlElement.innerHTML = '';
+          filmApp.displayResult(recValue)
+      })
+    })
   } else {
-    recError.textContent = `Sorry! Something happened and I don't know what it was! Please try again.`
-    filmApp.results.appendChild(recError)
+    throw new Error("No Recommendations!")
   }
-})
 }
 
 // call app.init
