@@ -99,6 +99,13 @@ filmApp.displayResult = (filmId) => {
     // Since you like {title}, you may also like:
     //styling/DOM manipulation
   })
+
+//Rounding number to 1 decimal
+filmApp.getRoundedNum = (num) => {
+  const numRounded = (Math.round(num * 10) / 10).toFixed(1);
+  return numRounded;
+}
+
 const getRecs = filmApp.filmRec(filmId);
 getRecs.then((recs) => {
     const resultArray = recs.results;
@@ -106,13 +113,17 @@ getRecs.then((recs) => {
     resultGallery.classList.add('resultGallery');
     if(resultArray.length > 0) {
       resultArray.forEach((rec) =>{
-        const {title, poster_path, overview, id} = rec
+        const {title, poster_path, overview, id, vote_average} = rec
         const resultContainer = document.createElement('div');
         resultContainer.classList.add('resultContainer');
         const overlayElement = document.createElement('div')
         overlayElement.classList.add('resultOverlay')
         overlayElement.innerHTML = `
           <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
+          <div>
+            <p>User Rating:</p>
+            <div><span>${filmApp.getRoundedNum(vote_average)}</span></div>
+          </div>
           <p>${overview.substring(0,200)}...</p>
           `
         const resImg = document.createElement('img')
