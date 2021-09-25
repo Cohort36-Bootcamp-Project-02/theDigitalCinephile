@@ -4,3 +4,17 @@ html {
 	font-size: 125%; /* setting font-size default to 20px*/
 	line-height: 1.5;
 }
+
+header,
+body,
+h1,
+h2,
+h3,
+h4,
+form,
+ul,
+p {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}

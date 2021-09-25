@@ -13,16 +13,37 @@
 <body>
   <header>
     <div class="wrapper">
-      <h1>Get some Movie recommendations!</h1>
+      <nav>
+        <div class="logo">
+					<a href="./index.html"><img src="./assets/logo.png" alt=""></a>
+        </div>
+        <h1>Movie and TV Recommendations Generator!</h1>
+
+      </nav>
     </div>
   </header>
   <main>
     <section class="userSearch wrapper">
-      <form action=" " class="filmSearch">
-        <label for="searchFilmTitle"> Enter the name of a movie</label>
-        <input type="search" name="searchFilmTitle" id="searchFilmTitle">
-        <button type="submit">Get Recommendations!</button>
-      </form>
+      <div class="form">
+        <h2>Get me some recommendations!</h2>
+        <form action=" " class="filmSearch">
+          <div class="productionSearch">
+            <label for="criteria">Please choose Movie production or TV production:</label>
+            <select name="productionType" id="productionType">
+              <option value="">movies</option>
+              <option value="1">TV</option>
+            </select>
+          </div>
+          <div class="searchTitle">
+            <label for="searchFilmTitle"> Enter the name of a movie</label>
+            <input type="search" name="searchFilmTitle" id="searchFilmTitle">
+            <button type="submit">Get Recommendations!</button>
+          </div>
+        </form>
+      </div>
+      <div class="searchImg">
+        <img src="./assets/curtain.png" alt="A crowd of people antipating the start of a movie or TV show">
+      </div>
     </section>
     <section class="refineSearch wrapper">
 
@@ -35,7 +56,8 @@
   </main>
   <footer>
     <div class="wrapper">
-      <a href="https://junocollege.com/">Created at Juno College of Technology</a>
+      <p>Created at <a href="https://junocollege.com/">Juno College of Technology</a></p>
+      <p>Data courtesy of the <a href="https://api.themoviedb.org">Movie Database API</a></p>
     </div>
   </footer>
 

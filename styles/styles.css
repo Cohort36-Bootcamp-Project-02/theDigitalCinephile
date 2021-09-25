@@ -254,6 +254,62 @@ html {
   line-height: 1.5;
 }
 
+header,
+body,
+h1,
+h2,
+h3,
+h4,
+form,
+ul,
+p {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+body {
+  background-color: #90cea1;
+}
+
+header {
+  padding: 0.5rem 0;
+  background-color: #0d253f;
+  -webkit-box-shadow: 0 0 1rem black;
+          box-shadow: 0 0 1rem black;
+}
+
+.logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+.userSearch {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .refineGallery {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -323,6 +379,17 @@ html {
 .resultContainer:focus-within img {
   -webkit-filter: blur(5px);
           filter: blur(5px);
+}
+
+footer {
+  text-align: center;
+  padding: 0.5rem 0;
+  background-color: #0d253f;
+}
+
+footer p,
+footer a {
+  color: #ffffff;
 }
 
 @media (max-width: 480px) {

@@ -1,8 +1,37 @@
 
-// body {
-//   background: $tertiaryColor;
-//   background: linear-gradient(180deg, rgba(144,206,161,1) 0%, rgba(1,180,228,1) 50%, rgba(144,206,161,1) 100%); 
-// }
+body {
+  background-color: $colorTertiary;
+}
+
+//header
+header {
+  padding: .5rem 0;
+  background-color: $colorMain;
+  box-shadow: 0 0 1rem black;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+
+//form
+
+h1 {
+  font-weight: 800;
+}
+
+.userSearch {
+  display:flex;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
 
 
 .refineGallery {
@@ -56,6 +85,18 @@
     filter:blur(5px)
   }
 }
+
+
+footer {
+  text-align: center;
+  padding: .5rem 0;
+  background-color: $colorMain;
+  }
+  footer p,
+  footer a {
+    color: $colorWhite;
+  }
+  
 
 //responsive design for small desktop screens
 @media (max-width: 940px) {
