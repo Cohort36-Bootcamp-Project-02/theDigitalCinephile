@@ -158,7 +158,7 @@ filmApp.getTrending = () => {
       return response.json();
   })
   .then((data) => {
-    const trendingResults = data.results.slice(0, 3)
+    const trendingResults = data.results.slice(0, 4)
     filmApp.display(filmApp.trending, trendingResults);
   })
 }
@@ -171,6 +171,7 @@ filmApp.display = (htmlElement, resultArray) => {
   resultGallery.classList.add('resultGallery');
   if(resultArray.length > 0) {
     resultArray.forEach((rec) =>{
+      console.log(rec)
       const {title, poster_path, overview, id, vote_average} = rec
       const resultContainer = document.createElement('div');
       resultContainer.classList.add('resultContainer');
@@ -202,6 +203,7 @@ filmApp.display = (htmlElement, resultArray) => {
             trailerButton.innerHTML = `
             <button>Watch Trailer</button>
             ` 
+            overlayElement.appendChild(trailerButton)
           }
         })    
         const moreRecs = document.createElement('button')

@@ -44,10 +44,10 @@ h1 {
 .userSearch {
   display:flex;
   justify-content: space-between;
-  flex-wrap:wrap;
 }
 
 .userSearch{
+  min-height:75vh;
   @include gradientWhite
 }
 
@@ -68,11 +68,17 @@ section:nth-child(3){
 
 .searchForm {
   flex:1 2 45%;
-  padding:25px 15px;
+  padding:50px 15px;
 }
 
-.trendingFilms {
+.trending {
   flex:2 1 55%;
+  .resultGallery {
+    display:flex;
+  }
+  .resultContainer {
+    width:calc(55% - 30px)
+  }
 }
 
 .searchForm {
