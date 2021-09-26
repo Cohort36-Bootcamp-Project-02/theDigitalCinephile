@@ -4,7 +4,7 @@ filmApp.findTrailers = async (filmID) => {
   // need film's ID # for "Video Endpoint"
   const id = filmID
   // ajax request with /movie/${movieID}/videos endpoint
-  const url = new URL(`${filmApp.tmdbURL}/movie/${id}/videos`)
+  const url = new URL(`${filmApp.tmdbURL}/${filmApp.userCriteria}/${id}/videos`)
   url.search = new URLSearchParams({
     api_key:filmApp.tmdbApiKey
   })

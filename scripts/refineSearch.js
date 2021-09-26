@@ -12,13 +12,14 @@ filmApp.refineSearch = (resultArray) => {
   filmApp.topResults = resultArray.slice(0,8)
   filmApp.topResults.forEach((film) => {
     if(film.poster_path !== null) {
-      const {title, id, poster_path} = film
+      const {title, name, id, poster_path} = film
+      const mediaName = filmApp.getMediaName(title, name);
       // display poster for each result with a button with the title of the film
         const refineContainer = document.createElement('div')
         refineContainer.classList.add('refineContainer');
         refineContainer.innerHTML = `
-        <img src="${filmApp.posterBaseURL}${poster_path}" alt="poster of ${title}">
-        <button type="submit" class="refineSubmit" value="${id}"> ${title}</button>
+        <img src="${filmApp.posterBaseURL}${poster_path}" alt="poster of ${mediaName}">
+        <button type="submit" class="refineSubmit" value="${id}"> ${mediaName}</button>
         `
         refineGallery.appendChild(refineContainer)
       }
