@@ -14,9 +14,14 @@ filmApp.searchForm = document.querySelector('.filmSearch')
 filmApp.queryResult = document.querySelector('.queryResult')
 filmApp.results = document.querySelector('.results')
 filmApp.trending = document.querySelector('.trending')
+filmApp.criteria = document.querySelector("#criteria")
+
+//
+filmApp.userCriteria = document.querySelector("#criteria").value;
 
 // app.init
 filmApp.init = () => {
+  filmApp.userDropDownSelection();
   filmApp.userInput();
   filmApp.getTrending();
 }
@@ -26,7 +31,7 @@ filmApp.userInput = () => {
   filmApp.searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const userQuery = document.querySelector("input[name=searchFilmTitle]").value
-    // refineGallery.innerHTML = '';
+    refineGallery.innerHTML = '';
     refineSection.innerHTML = '';
     filmApp.queryResult.innerHTML = '';
     filmApp.results.innerHTML = '';
@@ -34,9 +39,16 @@ filmApp.userInput = () => {
   })
 }
 
+//adding event listener for TV or Movie selection
+filmApp.userDropDownSelection = () => {
+  filmApp.criteria.addEventListener('change', (event) => {
+    filmApp.userCriteria = document.querySelector("#criteria").value;
+  })
+}
+
 // Take user input, create ajax request to search for films with the user's input as the title
 filmApp.filmSearch = (query) => {
-  const userSearch = new URL(`${filmApp.tmdbURL}/search/movie`)
+  const userSearch = new URL(`${filmApp.tmdbURL}/search/${filmApp.userCriteria}`)
   userSearch.search = new URLSearchParams({
     api_key:filmApp.tmdbApiKey,
     include_adult:false,
@@ -94,7 +106,7 @@ filmApp.filterSearch = (results, userQuery) => {
   // send searchResults to refineSearch();
 // Get data for the film the user entered (ID, title, poster)
 filmApp.queryData = async (movieId) => {
-  const filmQuery = new URL(`${filmApp.tmdbURL}/movie/${movieId}`)
+  const filmQuery = new URL(`${filmApp.tmdbURL}/${filmApp.userCriteria}/${movieId}`)
   filmQuery.search = new URLSearchParams({
     api_key:filmApp.tmdbApiKey,
   })
@@ -107,7 +119,7 @@ filmApp.queryData = async (movieId) => {
 // Use film's ID# as param in second ajax request to grab recommended films
 // In separate method, display recommended film array
 filmApp.filmRec = async (movieId) => {
-  const userRec = new URL(`${filmApp.tmdbURL}/movie/${movieId}/recommendations`)
+  const userRec = new URL(`${filmApp.tmdbURL}/${filmApp.userCriteria}/${movieId}/recommendations`)
   userRec.search = new URLSearchParams({
     api_key:filmApp.tmdbApiKey,
   })
@@ -124,9 +136,10 @@ filmApp.getRoundedNum = (num) => {
 filmApp.displayResult = (filmId) => {
   const queryData = filmApp.queryData(filmId);
   queryData.then((film) => {
-    const {title} = film
+    const {title, name} = film
+    const mediaName = filmApp.getMediaName(title, name);
     const queryTitle = document.createElement('h4')
-    queryTitle.textContent = `Since you like ${title}, you may also enjoy:`
+    queryTitle.textContent = `Since you like ${mediaName}, you may also enjoy:`
     filmApp.queryResult.append(queryTitle)
   })
 
@@ -152,7 +165,7 @@ getRecs.then((recs) => {
 
 //get API call for trending endpoint
 filmApp.getTrending = () => {
-  const trendingUrl = new URL(`${filmApp.tmdbURL}/trending/movie/day`)
+  const trendingUrl = new URL(`${filmApp.tmdbURL}/trending/${filmApp.userCriteria}/day`)
   trendingUrl.search = new URLSearchParams({
     api_key:filmApp.tmdbApiKey
   });
@@ -168,19 +181,30 @@ filmApp.getTrending = () => {
 
 // update page load with top trending for the past day
 
+filmApp.getMediaName = (title, name) => {
+  let mediaName = "";
+  if (filmApp.userCriteria === "movie"){
+    mediaName = title
+  } else {
+    mediaName = name
+  }
+  return mediaName;
+}
 
 filmApp.display = (htmlElement, resultArray) => {
   const resultGallery = document.createElement('div');
   resultGallery.classList.add('resultGallery');
   if(resultArray.length > 0) {
     resultArray.forEach((rec) =>{
-      const {title, poster_path, overview, id, vote_average} = rec
+      //movie has title property, tv show has the name property.  Using the getMediaName function to pick the right property value.
+      const {title, name, poster_path, overview, id, vote_average} = rec
       const resultContainer = document.createElement('div');
       resultContainer.classList.add('resultContainer');
       const overlayElement = document.createElement('div')
       overlayElement.classList.add('resultOverlay')
+      const mediaName = filmApp.getMediaName(title, name);
       overlayElement.innerHTML = `
-        <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${title}</h3></a>
+        <a href="${filmApp.tmdbMovieURL}/${id}"><h3>${mediaName}</h3></a>
         <div>
           <p>User Rating:</p>
           <div><span>${filmApp.getRoundedNum(vote_average)}</span></div>
@@ -189,7 +213,7 @@ filmApp.display = (htmlElement, resultArray) => {
         `
       const resImg = document.createElement('img')
       resImg.src = `${filmApp.posterBaseURL}${poster_path}`
-      resImg.alt = `poster of ${title}`
+      resImg.alt = `poster of $${mediaName}`
         resultContainer.appendChild(resImg)
         resultContainer.appendChild(overlayElement)
         resultGallery.appendChild(resultContainer);
