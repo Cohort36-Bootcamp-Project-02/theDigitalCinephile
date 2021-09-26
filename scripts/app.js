@@ -165,6 +165,7 @@ getRecs.then((recs) => {
 
 //get API call for trending endpoint
 filmApp.getTrending = () => {
+  console.log(filmApp.userCriteria)
   const trendingUrl = new URL(`${filmApp.tmdbURL}/trending/${filmApp.userCriteria}/day`)
   trendingUrl.search = new URLSearchParams({
     api_key:filmApp.tmdbApiKey
