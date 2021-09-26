@@ -313,7 +313,7 @@ p {
 }
 
 .resultOverlay h3 {
-  font-size: 2em;
+  font-size: 1.5rem;
   text-align: center;
   letter-spacing: 0.1rem;
   color: #ffffff;
@@ -326,12 +326,13 @@ p {
 .resultOverlay button {
   color: #ffffff;
   font-weight: 700;
+  font-size: 0.7rem;
 }
 .resultOverlay button:active {
   background: #01b4e4;
 }
 .resultOverlay p {
-  font-size: 0.8em;
+  font-size: 0.7rem;
 }
 
 .queryResult h4 {
@@ -394,15 +395,16 @@ h1 {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .searchForm {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 calc(50% - 100px);
-          flex: 1 1 calc(50% - 100px);
+      -ms-flex: 1 1 calc(40% - 100px);
+          flex: 1 1 calc(40% - 100px);
   margin-right: 50px;
-  -ms-flex-item-align: center;
-      align-self: center;
 }
 .searchForm span {
   font-style: italic;
@@ -410,10 +412,16 @@ h1 {
 }
 
 .trending {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 calc(50% - 50px);
-          flex: 0 0 calc(50% - 50px);
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 calc(60% - 50px);
+          flex: 1 1 calc(60% - 50px);
   margin: 50px 0;
+}
+.trending .resultContainer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 2 50%;
+          flex: 1 2 50%;
+  max-width: 342px;
 }
 
 .splashPage {
@@ -468,7 +476,7 @@ section:nth-child(3) {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin: 0 -15px;
+  margin: 0 auto;
 }
 .resultGallery .resultContainer {
   position: relative;
@@ -527,19 +535,35 @@ footer a {
 }
 
 @media (max-width: 940px) {
-  .searchForm {
+  .userSearch {
     -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+}
+@media (max-width: 768px) {
+  .resultGallery {
+    margin: 0 auto;
+  }
+  .resultGallery .resultContainer {
+    -webkit-box-flex: 1;
+        -ms-flex: auto;
+            flex: auto;
   }
 }
 @media (max-width: 480px) {
-  .refineGallery .refineContainer {
-    min-width: 300px;
+  html {
+    font-size: 95%;
   }
 
-  .resultGallery .resultContainer {
+  .refineGallery {
+    margin: 0 auto;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .refineGallery .refineContainer {
     min-width: 300px;
   }
 }

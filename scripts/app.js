@@ -135,6 +135,7 @@ getRecs.then((recs) => {
     const resultArray = recs.results.filter((films) => {
       return(films.poster_path !== null)
     });
+    console.log(resultArray)
   filmApp.display(filmApp.results, resultArray);
   }).catch((error) => {
     const recError = document.createElement('h4')
@@ -173,7 +174,6 @@ filmApp.display = (htmlElement, resultArray) => {
   resultGallery.classList.add('resultGallery');
   if(resultArray.length > 0) {
     resultArray.forEach((rec) =>{
-      console.log(rec)
       const {title, poster_path, overview, id, vote_average} = rec
       const resultContainer = document.createElement('div');
       resultContainer.classList.add('resultContainer');

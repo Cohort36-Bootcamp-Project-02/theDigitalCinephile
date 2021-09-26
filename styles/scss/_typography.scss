@@ -68,7 +68,7 @@ p {
 
 .resultOverlay {
     h3 {
-      font-size:2em;
+      font-size:1.5rem;
       text-align:center;
       letter-spacing:0.1rem;
       color:$colorWhite;
@@ -81,12 +81,13 @@ p {
     button {
       color:$colorWhite;
       font-weight:700;
+      font-size:0.7rem;
     }
     button:active {
       background:$colorSecondary;
     }
     p {
-      font-size:0.8em;
+      font-size:0.7rem;
     }
 }
 
