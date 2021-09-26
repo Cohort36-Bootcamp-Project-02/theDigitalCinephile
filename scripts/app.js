@@ -85,7 +85,9 @@ filmApp.filmSearch = (query) => {
 }
 
 filmApp.filterSearch = (results, userQuery) => {
-  if(results[0].title == userQuery || results[1].title == userQuery) {
+  if(results.length == 1){
+    filmApp.displayResult(results[0].id)
+  } else if(results[0].title == userQuery || results[1].title == userQuery) {
     const filterQuery = results.filter((film) => {
       const {title, poster_path} = film
       return(title === userQuery && poster_path !== null)
