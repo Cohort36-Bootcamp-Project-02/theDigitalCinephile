@@ -12,6 +12,7 @@ h2,
 h3,
 h4,
 form,
+fieldset,
 ul,
 p {
   margin: 0;
@@ -50,6 +51,8 @@ h2 {
   font-size:2.5rem;
   color:$colorWhite;
   text-shadow:$colorBlack 2px 5px;
+  text-align: center;
+  padding: 1rem;
 }
 
 h4 {
@@ -68,7 +71,7 @@ p {
 
 .resultOverlay {
     h3 {
-      font-size:1.5rem;
+      font-size:1.1rem;
       text-align:center;
       letter-spacing:0.1rem;
       color:$colorWhite;
@@ -82,9 +85,11 @@ p {
       color:$colorWhite;
       font-weight:700;
       font-size:0.7rem;
+      cursor: pointer;
     }
-    button:active {
-      background:$colorSecondary;
+    button:active,
+    button:hover {
+      background:$colorTertiaryActive;
     }
     p {
       font-size:0.7rem;

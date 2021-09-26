@@ -7,6 +7,7 @@ $fontStyleBody: 'Source Sans Pro', sans-serif;
 $colorMain: #0d253f;
 $colorSecondary:#01b4e4;
 $colorTertiary: #90cea1;
+$colorTertiaryActive: #4eac67;
 $colorWhite: #ffffff;
 $colorBlack: #000000;
 
@@ -27,8 +28,9 @@ $colorBlack: #000000;
   font-weight:800;
   padding:10px;
   border-radius:15px;
-  button:active{
-    background:$colorSecondary;
-    color:$colorMain
-  }
+
+}
+
+@mixin  buttonStyleActive {
+  background:$colorTertiaryActive;
 }

@@ -8,6 +8,8 @@ header {
   padding: 1rem 0;
   @include gradientNavy;
   box-shadow: 0 0 1rem black;
+  display: flex;
+  align-items: center;
 }
 
 header,
@@ -42,7 +44,7 @@ h1 {
 }
 
 .userSearch {
-  padding:150px 0;
+  padding:2rem 0;
   display:flex;
   flex-wrap:wrap;
   min-height:75vh;
@@ -51,16 +53,39 @@ h1 {
 }
 
 .searchForm {
-  flex:1 1 calc(40% - 100px);
-  margin-right:50px;
+  flex:1 1 calc(50% - 2rem);
+  margin-right:2rem;
+  border: 2px solid $colorMain;
+  border-radius:15px;
+  padding: 1rem;
   span {
     font-style:italic;
     font-weight:700;
   }
 }
 
+form {
+  display:flex;
+  flex-direction: column;
+}
+
+form fieldset {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: .5rem 0;
+}
+
+form button {
+  @include buttonStyle;
+}
+
+form button:active,
+form button:hover {
+  @include buttonStyleActive
+}
+
 .trending {
-  flex:1 1 calc(60% - 50px);
+  flex:1 1 calc(50%);
   margin:50px 0;
   .resultContainer {
     flex: 1 2 50%;
@@ -68,9 +93,6 @@ h1 {
   }
 }
 
-.splashPage{
-  @include gradientWhite
-}
 
 section:nth-child(2),
 section:nth-child(3){
@@ -98,6 +120,10 @@ section:nth-child(3){
     @include buttonStyle;
     width:100%;
   }
+  button:active,
+  button:hover {
+    @include buttonStyleActive;
+  }
 }
 
 .resultGallery {
@@ -107,7 +133,6 @@ section:nth-child(3){
   .resultContainer {
     position: relative;
     flex:1 1 30%;
-    max-width: 342px;
     margin:15px;
     .resultOverlay,
     img {
@@ -147,6 +172,8 @@ footer {
   text-align: center;
   padding: .5rem 0;
   background-color: $colorMain;
+  display:flex;
+  align-items: center;
   }
   footer p,
   footer a {
@@ -156,8 +183,11 @@ footer {
 
 //responsive design for small desktop screens
 @media (max-width: 940px) {
-  .userSearch{
-    flex-direction:column-reverse;
+  .trending {
+    display: none;
+  }
+  .searchForm {
+    margin: 0;
   }
 
 }

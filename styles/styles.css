@@ -261,6 +261,7 @@ h2,
 h3,
 h4,
 form,
+fieldset,
 ul,
 p {
   margin: 0;
@@ -297,6 +298,8 @@ h2 {
   font-size: 2.5rem;
   color: #ffffff;
   text-shadow: #000000 2px 5px;
+  text-align: center;
+  padding: 1rem;
 }
 
 h4 {
@@ -313,7 +316,7 @@ p {
 }
 
 .resultOverlay h3 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   text-align: center;
   letter-spacing: 0.1rem;
   color: #ffffff;
@@ -327,9 +330,11 @@ p {
   color: #ffffff;
   font-weight: 700;
   font-size: 0.7rem;
+  cursor: pointer;
 }
-.resultOverlay button:active {
-  background: #01b4e4;
+.resultOverlay button:active,
+.resultOverlay button:hover {
+  background: #4eac67;
 }
 .resultOverlay p {
   font-size: 0.7rem;
@@ -345,6 +350,12 @@ header {
   background: linear-gradient(180deg, #0d253f 5%, #01b4e4 10%, #90cea1 15%, #0d253f 20%, #0d253f 80%, #90cea1 85%, #01b4e4 90%, #0d253f 100%);
   -webkit-box-shadow: 0 0 1rem black;
           box-shadow: 0 0 1rem black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 header,
@@ -385,7 +396,7 @@ h1 {
 }
 
 .userSearch {
-  padding: 150px 0;
+  padding: 2rem 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -402,19 +413,57 @@ h1 {
 
 .searchForm {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 calc(40% - 100px);
-          flex: 1 1 calc(40% - 100px);
-  margin-right: 50px;
+      -ms-flex: 1 1 calc(50% - 2rem);
+          flex: 1 1 calc(50% - 2rem);
+  margin-right: 2rem;
+  border: 2px solid #0d253f;
+  border-radius: 15px;
+  padding: 1rem;
 }
 .searchForm span {
   font-style: italic;
   font-weight: 700;
 }
 
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+form fieldset {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  padding: 0.5rem 0;
+}
+
+form button {
+  background: #90cea1;
+  color: #ffffff;
+  border: solid #0d253f 2px;
+  font-weight: 800;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+form button:active,
+form button:hover {
+  background: #4eac67;
+}
+
 .trending {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 calc(60% - 50px);
-          flex: 1 1 calc(60% - 50px);
+      -ms-flex: 1 1 calc(50%);
+          flex: 1 1 calc(50%);
   margin: 50px 0;
 }
 .trending .resultContainer {
@@ -422,11 +471,6 @@ h1 {
       -ms-flex: 1 2 50%;
           flex: 1 2 50%;
   max-width: 342px;
-}
-
-.splashPage {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #0d253f), color-stop(6%, #01b4e4), color-stop(8%, #90cea1), color-stop(10%, #ffffff), color-stop(95%, #ffffff), color-stop(96%, #90cea1), color-stop(98%, #01b4e4), to(#0d253f));
-  background: linear-gradient(180deg, #0d253f 5%, #01b4e4 6%, #90cea1 8%, #ffffff 10%, #ffffff 95%, #90cea1 96%, #01b4e4 98%, #0d253f 100%);
 }
 
 section:nth-child(2),
@@ -464,10 +508,11 @@ section:nth-child(3) {
   border-radius: 15px;
   width: 100%;
 }
-.refineContainer button button:active,
-.resultGallery button button:active {
-  background: #01b4e4;
-  color: #0d253f;
+.refineContainer button:active,
+.refineContainer button:hover,
+.resultGallery button:active,
+.resultGallery button:hover {
+  background: #4eac67;
 }
 
 .resultGallery {
@@ -483,7 +528,6 @@ section:nth-child(3) {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 30%;
           flex: 1 1 30%;
-  max-width: 342px;
   margin: 15px;
 }
 .resultGallery .resultContainer .resultOverlay,
@@ -527,6 +571,12 @@ footer {
   text-align: center;
   padding: 0.5rem 0;
   background-color: #0d253f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 footer p,
@@ -535,11 +585,12 @@ footer a {
 }
 
 @media (max-width: 940px) {
-  .userSearch {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: column-reverse;
-            flex-direction: column-reverse;
+  .trending {
+    display: none;
+  }
+
+  .searchForm {
+    margin: 0;
   }
 }
 @media (max-width: 768px) {
