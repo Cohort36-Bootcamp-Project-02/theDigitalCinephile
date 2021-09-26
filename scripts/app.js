@@ -148,8 +148,7 @@ getRecs.then((recs) => {
     const resultArray = recs.results.filter((films) => {
       return(films.poster_path !== null)
     });
-    console.log(resultArray)
-  filmApp.display(filmApp.results, resultArray);
+  filmApp.display(filmApp.results, resultArray, true);
   }).catch((error) => {
     const recError = document.createElement('h4')
     if(error.message === "No Recommendations!"){
@@ -165,7 +164,6 @@ getRecs.then((recs) => {
 
 //get API call for trending endpoint
 filmApp.getTrending = () => {
-  console.log(filmApp.userCriteria)
   const trendingUrl = new URL(`${filmApp.tmdbURL}/trending/${filmApp.userCriteria}/day`)
   trendingUrl.search = new URLSearchParams({
     api_key:filmApp.tmdbApiKey
@@ -176,7 +174,7 @@ filmApp.getTrending = () => {
   })
   .then((data) => {
     const trendingResults = data.results.slice(0, 2)
-    filmApp.display(filmApp.trending, trendingResults);
+    filmApp.display(filmApp.trending, trendingResults, false);
   })
 }
 
@@ -192,7 +190,7 @@ filmApp.getMediaName = (title, name) => {
   return mediaName;
 }
 
-filmApp.display = (htmlElement, resultArray) => {
+filmApp.display = (htmlElement, resultArray, displayButton) => {
   const resultGallery = document.createElement('div');
   resultGallery.classList.add('resultGallery');
   if(resultArray.length > 0) {
@@ -232,12 +230,14 @@ filmApp.display = (htmlElement, resultArray) => {
             ` 
             overlayElement.appendChild(trailerButton)
           }
-        })    
-        const moreRecs = document.createElement('button')
-        moreRecs.value = id
-        moreRecs.classList.add('moreRecs')
-        moreRecs.textContent = `Get More Recommendations!`
-        overlayElement.appendChild(moreRecs)
+        })
+        if (displayButton === true) {
+          const moreRecs = document.createElement('button')
+          moreRecs.value = id
+          moreRecs.classList.add('moreRecs')
+          moreRecs.textContent = `Get More Recommendations!`
+          overlayElement.appendChild(moreRecs)
+        }
     })
     htmlElement.appendChild(resultGallery);
   
