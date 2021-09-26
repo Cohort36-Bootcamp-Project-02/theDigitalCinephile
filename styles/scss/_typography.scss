@@ -61,9 +61,14 @@ h4 {
   font-weight:700;
 }
 
+p {
+  font-size:0.8rem;
+}
+
+
 .resultOverlay {
     h3 {
-      font-size:2rem;
+      font-size:2em;
       text-align:center;
       letter-spacing:0.1rem;
       color:$colorWhite;
@@ -80,4 +85,13 @@ h4 {
     button:active {
       background:$colorSecondary;
     }
+    p {
+      font-size:0.8em;
+    }
+}
+
+.queryResult {
+  h4 {
+    color:$colorBlack
+  }
 }

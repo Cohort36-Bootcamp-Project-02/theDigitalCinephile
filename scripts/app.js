@@ -11,6 +11,7 @@ filmApp.youtubeURL = `https://youtube.com/watch`
 
 // HTML properties
 filmApp.searchForm = document.querySelector('.filmSearch')
+filmApp.queryResult = document.querySelector('.queryResult')
 filmApp.results = document.querySelector('.results')
 filmApp.trending = document.querySelector('.trending')
 
@@ -25,10 +26,10 @@ filmApp.userInput = () => {
   filmApp.searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const userQuery = document.querySelector("input[name=searchFilmTitle]").value
-    refineGallery.innerHTML = '';
+    // refineGallery.innerHTML = '';
     refineSection.innerHTML = '';
+    filmApp.queryResult.innerHTML = '';
     filmApp.results.innerHTML = '';
-    filmApp.trending.innerHTML ='';
     filmApp.filmSearch(userQuery)
   })
 }
@@ -123,9 +124,10 @@ filmApp.getRoundedNum = (num) => {
 filmApp.displayResult = (filmId) => {
   const queryData = filmApp.queryData(filmId);
   queryData.then((film) => {
-    const {title, poster_path} = film
-    // Since you like {title}, you may also like:
-    //styling/DOM manipulation
+    const {title} = film
+    const queryTitle = document.createElement('h4')
+    queryTitle.textContent = `Since you like ${title}, you may also enjoy:`
+    filmApp.queryResult.append(queryTitle)
   })
 
 const getRecs = filmApp.filmRec(filmId);
@@ -158,7 +160,7 @@ filmApp.getTrending = () => {
       return response.json();
   })
   .then((data) => {
-    const trendingResults = data.results.slice(0, 4)
+    const trendingResults = data.results.slice(0, 2)
     filmApp.display(filmApp.trending, trendingResults);
   })
 }
@@ -209,7 +211,7 @@ filmApp.display = (htmlElement, resultArray) => {
         const moreRecs = document.createElement('button')
         moreRecs.value = id
         moreRecs.classList.add('moreRecs')
-        moreRecs.textContent = `Get me some sweet movie recommendations!`
+        moreRecs.textContent = `Get More Recommendations!`
         overlayElement.appendChild(moreRecs)
     })
     htmlElement.appendChild(resultGallery);
@@ -218,7 +220,8 @@ filmApp.display = (htmlElement, resultArray) => {
     recButtons.forEach((button) => {
       button.addEventListener('click', function() {
           recValue = this.value
-          htmlElement.innerHTML = '';
+          filmApp.results.innerHTML = '';
+          filmApp.queryResult.innerHTML = '';
           filmApp.displayResult(recValue)
       })
     })

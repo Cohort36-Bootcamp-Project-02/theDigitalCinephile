@@ -42,12 +42,29 @@ h1 {
 }
 
 .userSearch {
+  padding:150px 0;
   display:flex;
+  flex-wrap:wrap;
+  min-height:75vh;
   justify-content: space-between;
 }
 
-.userSearch{
-  min-height:75vh;
+.searchForm {
+  flex:1 1 calc(50% - 100px);
+  margin-right:50px;
+  align-self:center;
+  span {
+    font-style:italic;
+    font-weight:700;
+  }
+}
+
+.trending {
+  flex:0 0 calc(50% - 50px);
+  margin:50px 0;
+}
+
+.splashPage{
   @include gradientWhite
 }
 
@@ -56,52 +73,16 @@ section:nth-child(3){
   @include gradientNavy
 }
 
-.refineGallery,
-.resultGallery {
-  padding:50px 0;
-}
-
-
-.trendingFilms {
-  min-height:75vh;
-}
-
-.searchForm {
-  flex:1 2 45%;
-  padding:50px 15px;
-}
-
-.trending {
-  flex:2 1 55%;
-  .resultGallery {
-    display:flex;
-  }
-  .resultContainer {
-    width:calc(55% - 30px)
-  }
-}
-
-.searchForm {
-  span {
-    font-style:italic;
-    font-weight:700;
-  }
-  align-self:center;
-}
-
-.trendingFilms {
-  background:url(../assets/curtain.png)
-}
 
 
 .refineGallery {
+  padding:50px 0;
   display:flex;
   flex-wrap:wrap;
   justify-content: space-between;
   margin: 0 -15px;
   .refineContainer {
     flex:1 1 30%;
-    min-width: 340px;
     margin:15px;
 
   }
@@ -118,12 +99,11 @@ section:nth-child(3){
 .resultGallery {
   display:flex;
   flex-wrap:wrap;
-  justify-content: space-between;
   margin:0 -15px;
   .resultContainer {
     position: relative;
     flex:1 1 30%;
-    min-width: 340px;
+    max-width: 342px;
     margin:15px;
     .resultOverlay,
     img {
@@ -131,7 +111,6 @@ section:nth-child(3){
     }
   }
 }
-
 
 .resultOverlay {
   position: absolute;
@@ -173,6 +152,9 @@ footer {
 
 //responsive design for small desktop screens
 @media (max-width: 940px) {
+  .searchForm{
+    flex-direction:column;
+  }
 
 }
 
