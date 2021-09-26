@@ -379,11 +379,10 @@ h1 {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
 }
 
 .userSearch {
+  min-height: 75vh;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #0d253f), color-stop(6%, #01b4e4), color-stop(8%, #90cea1), color-stop(10%, #ffffff), color-stop(95%, #ffffff), color-stop(96%, #90cea1), color-stop(98%, #01b4e4), to(#0d253f));
   background: linear-gradient(180deg, #0d253f 5%, #01b4e4 6%, #90cea1 8%, #ffffff 10%, #ffffff 95%, #90cea1 96%, #01b4e4 98%, #0d253f 100%);
 }
@@ -407,13 +406,21 @@ section:nth-child(3) {
   -webkit-box-flex: 1;
       -ms-flex: 1 2 45%;
           flex: 1 2 45%;
-  padding: 25px 15px;
+  padding: 50px 15px;
 }
 
-.trendingFilms {
+.trending {
   -webkit-box-flex: 2;
       -ms-flex: 2 1 55%;
           flex: 2 1 55%;
+}
+.trending .resultGallery {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.trending .resultContainer {
+  width: calc(55% - 30px);
 }
 
 .searchForm {
