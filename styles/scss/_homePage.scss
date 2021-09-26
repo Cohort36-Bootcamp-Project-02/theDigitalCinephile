@@ -42,12 +42,33 @@ h1 {
 }
 
 .userSearch {
+  padding:150px 0;
   display:flex;
+  flex-wrap:wrap;
+  min-height:75vh;
   justify-content: space-between;
+  align-items:center;
 }
 
-.userSearch{
-  min-height:75vh;
+.searchForm {
+  flex:1 1 calc(40% - 100px);
+  margin-right:50px;
+  span {
+    font-style:italic;
+    font-weight:700;
+  }
+}
+
+.trending {
+  flex:1 1 calc(60% - 50px);
+  margin:50px 0;
+  .resultContainer {
+    flex: 1 2 50%;
+    max-width: 342px;
+  }
+}
+
+.splashPage{
   @include gradientWhite
 }
 
@@ -56,52 +77,16 @@ section:nth-child(3){
   @include gradientNavy
 }
 
-.refineGallery,
-.resultGallery {
-  padding:50px 0;
-}
-
-
-.trendingFilms {
-  min-height:75vh;
-}
-
-.searchForm {
-  flex:1 2 45%;
-  padding:50px 15px;
-}
-
-.trending {
-  flex:2 1 55%;
-  .resultGallery {
-    display:flex;
-  }
-  .resultContainer {
-    width:calc(55% - 30px)
-  }
-}
-
-.searchForm {
-  span {
-    font-style:italic;
-    font-weight:700;
-  }
-  align-self:center;
-}
-
-.trendingFilms {
-  background:url(../assets/curtain.png)
-}
 
 
 .refineGallery {
+  padding:50px 0;
   display:flex;
   flex-wrap:wrap;
   justify-content: space-between;
   margin: 0 -15px;
   .refineContainer {
     flex:1 1 30%;
-    min-width: 340px;
     margin:15px;
 
   }
@@ -118,12 +103,11 @@ section:nth-child(3){
 .resultGallery {
   display:flex;
   flex-wrap:wrap;
-  justify-content: space-between;
-  margin:0 -15px;
+  margin:0 auto;
   .resultContainer {
     position: relative;
     flex:1 1 30%;
-    min-width: 340px;
+    max-width: 342px;
     margin:15px;
     .resultOverlay,
     img {
@@ -131,7 +115,6 @@ section:nth-child(3){
     }
   }
 }
-
 
 .resultOverlay {
   position: absolute;
@@ -173,26 +156,32 @@ footer {
 
 //responsive design for small desktop screens
 @media (max-width: 940px) {
+  .userSearch{
+    flex-direction:column-reverse;
+  }
 
 }
 
 //responsive design for tablets
 @media (max-width: 768px) {
-
+  .resultGallery {
+    margin:0 auto;
+    .resultContainer {
+      flex:auto;
+    }
+  }
 }
 
 //responsive design for phones
 @media (max-width: 480px) {
-
-  .refineGallery {
-    .refineContainer {
-      min-width: 300px;
-    }
+  html {
+    font-size:95%;
   }
 
-  .resultGallery {
-
-    .resultContainer {
+  .refineGallery {
+    margin:0 auto;
+    justify-content:center;
+    .refineContainer {
       min-width: 300px;
     }
   }
